@@ -1,0 +1,15 @@
+adminer:
+docker run -it -d --name adminer -p 8080:8080 --network mybank -e ADMINER_DEFAULT_SERVER="sql database name" --restart always adminer
+
+axon server:
+docker run -d --name axon-server -p 8024:8024 -p 8124:8124 --network mybank --restart always axoniq/axonserver:latest
+
+to create network:
+>docker network create --attachable -d overlay mybank
+
+mysql image:
+docker run -it -d --name mysql-database -p 3306:3306 --network mybank -e MYSQL_ROOT_PASSWORD=password --restart always -v mysql_data_container:/var/lib/mysql mysql
+
+mongo image:
+
+docker run -it -d --name mongodb -p 21017:27017 --network mybank --restart always -v mongodb_data_container:/data/db mongo:latest
